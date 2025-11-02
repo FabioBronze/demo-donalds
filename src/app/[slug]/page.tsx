@@ -17,7 +17,6 @@ const RestaurantPage = async ({ params }: RestaurantPageProps) => {
   }
   return (
     <div className="flex h-screen flex-col items-center justify-center px-6 pt-24">
-      <div className="max-w-md">
         <div className="flex flex-col items-center gap-2">
           <Image
             src={restaurant?.avatarImageUrl}
@@ -50,7 +49,6 @@ const RestaurantPage = async ({ params }: RestaurantPageProps) => {
             imageUrl="/takeaway.webp"
           />
         </div>
-      </div>
     </div>
   );
 };

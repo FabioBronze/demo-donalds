@@ -23,7 +23,14 @@ const RestaurantMenuPage = async ({
   if (!isConsuptionMethodValid(consumptionMethod)) {
     return notFound();
   }
-  const restaurant = await db.restaurant.findUnique({ where: { slug } });
+  const restaurant = await db.restaurant.findUnique({
+    where: { slug },
+    include: {
+      menuCategories: {
+        include: { products: true },
+      }, //Trás todas as categorias da tabela Categories do Prisma e também todos os produtos, porque temos MenuCategory[] dentro do Restaurant e Products[] dentro de MenuCategory.
+    },
+  });
   if (!restaurant) {
     return notFound();
   }
