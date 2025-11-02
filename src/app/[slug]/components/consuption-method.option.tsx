@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 
 interface ConsuptionMethodOptionPros {
+  slug: string;
   imageUrl: string;
   imageAlt: string;
   buttonText: string;
@@ -13,6 +14,7 @@ interface ConsuptionMethodOptionPros {
 }
 
 const ConsuptionMethodOption = ({
+  slug,
   imageUrl,
   imageAlt,
   buttonText,
@@ -29,8 +31,10 @@ const ConsuptionMethodOption = ({
             className="object-contain"
           />
         </div>
-        <Button variant="secondary" className="rounded-full">
-          <Link href={`/menu?onsumptionMethod=${option}`}>{buttonText}</Link>
+        <Button variant="secondary" className="rounded-full" asChild>
+          <Link href={`/${slug}/menu?consumptionMethod=${option}`}>
+            {buttonText}
+          </Link>
         </Button>
       </CardContent>
     </Card>
