@@ -1,6 +1,8 @@
-import { Prisma } from "@prisma/client";
+"use client"
+import { MenuCategory, Prisma } from "@prisma/client";
 import { GlobeLockIcon } from "lucide-react";
 import Image from "next/image";
+import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
@@ -16,6 +18,13 @@ interface CategoriesProps {
 }
 
 const Categories = ({ restaurant }: CategoriesProps) => {
+  const [selectedCategory, setSelectedCategory] = useState<MenuCategory>(restaurant.menuCategories[0])
+  const handleCategoryClick = (category: MenuCategory) => {
+    setSelectedCategory(category)
+  }
+  const getCategoryButtonVariant = (category: MenuCategory) => {
+    return selectedCategory.id === category.id ? "default" : "secondary"
+  }
     return (
     <div className="relative z-50 mt-[-1.5rem] rounded-t-3xl border bg-white">
       <div className="p-5">
@@ -39,7 +48,7 @@ const Categories = ({ restaurant }: CategoriesProps) => {
       <ScrollArea className="w-full">
         <div className="flex w-max space-x-4 p-4 pt-0">
           {restaurant.menuCategories.map (category => (
-          <Button key={category.id} variant="secondary" size="sm" className="rounded-full">
+          <Button onClick={() => handleCategoryClick(category)} key={category.id} variant={getCategoryButtonVariant(category)} size="sm" className="rounded-full">
             {category.name}
           </Button>
           ))}
