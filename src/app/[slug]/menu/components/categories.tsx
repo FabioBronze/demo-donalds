@@ -1,5 +1,5 @@
 "use client"
-import { MenuCategory, Prisma } from "@prisma/client";
+import { Prisma } from "@prisma/client";
 import { GlobeLockIcon } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
@@ -17,12 +17,16 @@ interface CategoriesProps {
   }>;
 }
 
+type MenuCategoriesWithProducts = Prisma.MenuCategoryGetPayload<{
+  include: {products: true} //Retorna Categories e os Products dessa Category
+}>
+
 const Categories = ({ restaurant }: CategoriesProps) => {
-  const [selectedCategory, setSelectedCategory] = useState<MenuCategory>(restaurant.menuCategories[0])
-  const handleCategoryClick = (category: MenuCategory) => {
+  const [selectedCategory, setSelectedCategory] = useState<MenuCategoriesWithProducts>(restaurant.menuCategories[0])
+  const handleCategoryClick = (category: MenuCategoriesWithProducts) => {
     setSelectedCategory(category)
   }
-  const getCategoryButtonVariant = (category: MenuCategory) => {
+  const getCategoryButtonVariant = (category: MenuCategoriesWithProducts) => {
     return selectedCategory.id === category.id ? "default" : "secondary"
   }
     return (
