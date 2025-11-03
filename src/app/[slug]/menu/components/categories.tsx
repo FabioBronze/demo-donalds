@@ -7,6 +7,8 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 
+import Products from "./products";
+
 interface CategoriesProps {
   restaurant: Prisma.RestaurantGetPayload<{
     include: {
@@ -30,7 +32,7 @@ const Categories = ({ restaurant }: CategoriesProps) => {
     return selectedCategory.id === category.id ? "default" : "secondary"
   }
     return (
-    <div className="relative z-50 mt-[-1.5rem] rounded-t-3xl border bg-white">
+    <div className="relative z-50 mt-[-1.5rem] rounded-t-3xl bg-white">
       <div className="p-5">
         <div className="flex items-center gap-3">
         <Image
@@ -59,6 +61,8 @@ const Categories = ({ restaurant }: CategoriesProps) => {
         </div>
         <ScrollBar orientation="horizontal" />
       </ScrollArea>
+      <h3 className="px-5 font-semibold pt-2">{selectedCategory.name}</h3>
+      <Products products={selectedCategory.products}/>
     </div>
   );
 };
