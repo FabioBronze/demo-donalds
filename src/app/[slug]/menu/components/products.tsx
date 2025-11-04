@@ -25,6 +25,7 @@ const Products = ({ products }: ProductsProps) => {
                         src={product.imageUrl}
                         alt={product.name}
                         fill
+                        sizes="(max-width: 768px) 100vw, 120px"
                         className="rounded-lg object-contain"
                     />
                 </div>
