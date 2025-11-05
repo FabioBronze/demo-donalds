@@ -3,27 +3,27 @@ import Image from "next/image";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 
+import { formatCurrency } from "@/helpers/format-currency";
+
 interface ProductsProps {
     products: Product[]
 }
 
 const Products = ({ products }: ProductsProps) => {
     const { slug } = useParams<{ slug: string }>()
-    return ( <div className="space-y-3 px-5">
+    return (<div className="space-y-3 px-5">
         {products.map(product => (
-            <Link key={product.id} href={`/${slug}/menu/${product.id }`} className="flex items-center justify-between gap-10 py-5 border-b">
+            <Link key={product.id} href={`/${slug}/menu/${product.id}`} className="flex items-center justify-between gap-10 py-5 border-b">
                 <div>
                     <h3 className="text-sm font-medium">
                         {product.name}
                     </h3>
                     <p className="line-clamp-2 text-sm text-muted-foreground">{product.description}</p>
-                    <p className="pt-3 text-sm font-semibold">{new Intl.NumberFormat("pt-PT", {
-                        style: 'currency',
-                        currency: 'EUR'                    
-                    }).format(product.price)}</p>
+                    <p className="pt-3 text-sm font-semibold">{formatCurrency(product.price)}
+                    </p>
                 </div>
                 <div className="relative min-h-[82px] min-w-[120px]">
-                    <Image 
+                    <Image
                         src={product.imageUrl}
                         alt={product.name}
                         fill
@@ -33,7 +33,7 @@ const Products = ({ products }: ProductsProps) => {
                 </div>
             </Link>
         ))}
-    </div> );
+    </div>);
 }
- 
+
 export default Products;
